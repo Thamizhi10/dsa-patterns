@@ -1,0 +1,19 @@
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        graph={i:[] for i in range(n)}
+        for src,dest in edges:
+            graph[src].append(dest)
+            graph[dest].append(src)
+        comp=0
+        visited=set()
+        def dfs(node):
+            if node not in visited:
+                visited.add(node)
+                for nei in graph[node]:
+                    dfs(nei)
+
+        for i in range(n):
+            if i not in visited:
+                dfs(i)
+                comp+=1
+        return comp
